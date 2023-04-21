@@ -1,0 +1,17 @@
+.menuItems {
+  list-style: none;
+  display: flex;
+}
+
+.menuItems li {
+  padding: 0 10px;
+  color: black;
+}
+
+.menuItems a {
+  color: black;
+}
+
+.menuItems a:hover {
+  color: black;
+}

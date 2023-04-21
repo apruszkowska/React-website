@@ -1,0 +1,11 @@
+.clients {
+  display: flex;
+}
+
+.users_card {
+  padding: 0 30px;
+}
+
+.nameAndSurname {
+  display: inline-block;
+}
