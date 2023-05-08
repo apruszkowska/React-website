@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@mui/material/TextField";
+import { useUsersContext } from "../contexts/UserContext";
 
 const yupSchema = yup.object({
   login: yup.string().required("Login jest wymagane"),
@@ -41,6 +42,8 @@ const FormInput = ({
 };
 
 export const FakeLogin = () => {
+  const { logIn } = useUsersContext();
+
   const formik = useFormik<FormValues>({
     initialValues: {
       login: "",
@@ -48,9 +51,10 @@ export const FakeLogin = () => {
     },
     validationSchema: yupSchema,
     onSubmit: (values: FormValues) => {
-      alert(JSON.stringify(values, null, 2));
+      logIn(values.login, values.password);
     },
   });
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="form">Login</label>
