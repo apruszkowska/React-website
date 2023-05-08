@@ -1,3 +1,5 @@
+import ReactSwitch from "react-switch";
+
 import {
   createContext,
   useState,
@@ -7,18 +9,28 @@ import {
 } from "react";
 
 type ThemeContextProps = {
-  isDarkTheme: boolean;
-  setIsDarkTheme: Dispatch<SetStateAction<boolean>>;
+  themeName: string;
+  toggleTheme: () => void;
 };
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [themeName, setThemeName] = useState("light");
+
+  const toggleTheme = () => {
+    setThemeName((curr) => (curr === "light" ? "dark" : "light"));
+  };
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, setIsDarkTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ themeName, toggleTheme }}>
+      <div className="theme" id={themeName}>
+        {children}
+        <div className="switch">
+          <label>{themeName === "light" ? "Light Mode" : "Dark Mode"} </label>
+          <ReactSwitch onChange={toggleTheme} checked={themeName === "dark"} />
+        </div>
+      </div>
     </ThemeContext.Provider>
   );
 };
@@ -27,7 +39,6 @@ export const useThemeContext = () => {
   const ctx = useContext(ThemeContext);
 
   if (!ctx) {
-    // poza komponentem dziecka providera zwróci nulla
     throw new Error("Missing themeContext, it's not wrapped in ThemeProvider");
   }
   return ctx;
