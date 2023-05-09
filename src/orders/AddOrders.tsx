@@ -220,3 +220,4 @@ export const AddOrders = () => {
     </form>
   );
 };
+export default AddOrders;

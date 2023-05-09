@@ -1,8 +1,4 @@
-import { useState } from "react";
 import "./App.css";
-import { AsideMenu } from "./others/AsideMenu";
-import { HooksDrugie } from "./others/HooksDrugie";
-import { Hooks } from "./others/Hooks";
 import { SingleOrder } from "./orders/SingleOrder";
 import {
   BrowserRouter,
@@ -11,8 +7,8 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import { AddClients } from "./clientss/AddClients";
-import { AddOrders } from "./orders/AddOrders";
+// import { AddClients } from "./clientss/AddClients";
+// import { AddOrders } from "./orders/AddOrders";
 import { Card } from "./clientss/Card";
 import { useCards } from "./others/useCards";
 import { Home } from "./routingLinks/Home";
@@ -27,6 +23,11 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { UsersProvider } from "./contexts/UserContext";
 import { ProtectedWrapper } from "./others/ProtectedWrapper";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import { lazy, Suspense } from "react";
+
+// lazy loading
+const AddClients = lazy(() => import("./clientss/AddClients"));
+const AddOrders = lazy(() => import("./orders/AddOrders"));
 
 function App() {
   return (
@@ -38,7 +39,14 @@ function App() {
             <Route path="/" />
             <Route path="clients">
               <Route index element={<Users />} />
-              <Route path="add" element={<AddClients />} />
+              <Route
+                path="add"
+                element={
+                  <Suspense>
+                    <AddClients />
+                  </Suspense>
+                }
+              />
               <Route path=":id">
                 <Route index element={<OneId />} />
                 <Route path="edit" element={<EditClient />} />
@@ -47,7 +55,14 @@ function App() {
 
             <Route path="orders">
               <Route index element={<Orders />} />
-              <Route path="add" element={<AddOrders />} />
+              <Route
+                path="add"
+                element={
+                  <Suspense>
+                    <AddOrders />
+                  </Suspense>
+                }
+              />
               <Route path=":id" element={<SingleOrder />} />
             </Route>
 

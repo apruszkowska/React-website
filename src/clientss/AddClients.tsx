@@ -91,3 +91,5 @@ export const AddClients = () => {
     </form>
   );
 };
+
+export default AddClients;

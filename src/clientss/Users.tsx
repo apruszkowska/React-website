@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { DisabledByDefault } from "@mui/icons-material";
 import { Client as ClientType, getAllClients } from "../api/clients";
-import { cards } from "../constants";
 import { Link } from "react-router-dom";
 import ClientStyles from "./UserId.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { useThemeContext } from "../contexts/ThemeContext";
 
 // export type Person = {
 //   imgSrc: string;
@@ -20,8 +15,6 @@ import { useThemeContext } from "../contexts/ThemeContext";
 // };
 
 export const Users = () => {
-  const { isDarkTheme, setIsDarkTheme } = useThemeContext();
-  console.log(isDarkTheme);
   // const [users, setUsers] = useState<ClientType[]>([]);
 
   // useEffect(() => {
