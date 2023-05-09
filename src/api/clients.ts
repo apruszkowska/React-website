@@ -87,3 +87,5 @@ export const addClient = async (newClient: Client) => {
   const data = await response.json();
   return data as Client;
 };
+
+// npx json-server --watch db.json

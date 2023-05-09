@@ -26,40 +26,43 @@ import { EditClient } from "./clientss/EditClient";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { UsersProvider } from "./contexts/UserContext";
 import { ProtectedWrapper } from "./others/ProtectedWrapper";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 function App() {
   return (
     <ThemeProvider>
       <UsersProvider>
-        <Home />
-        <Routes>
-          <Route path="/" />
-          <Route path="clients">
-            <Route index element={<Users />} />
-            <Route path="add" element={<AddClients />} />
-            <Route path=":id">
-              <Route index element={<OneId />} />
-              <Route path="edit" element={<EditClient />} />
+        <ErrorBoundary>
+          <Home />
+          <Routes>
+            <Route path="/" />
+            <Route path="clients">
+              <Route index element={<Users />} />
+              <Route path="add" element={<AddClients />} />
+              <Route path=":id">
+                <Route index element={<OneId />} />
+                <Route path="edit" element={<EditClient />} />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="orders">
-            <Route index element={<Orders />} />
-            <Route path="add" element={<AddOrders />} />
-            <Route path=":id" element={<SingleOrder />} />
-          </Route>
+            <Route path="orders">
+              <Route index element={<Orders />} />
+              <Route path="add" element={<AddOrders />} />
+              <Route path=":id" element={<SingleOrder />} />
+            </Route>
 
-          <Route
-            path="invoices"
-            element={
-              <ProtectedWrapper>
-                <EditClient />
-              </ProtectedWrapper>
-            }
-          />
-          <Route path="login" element={<FakeLogin />} />
-          <Route path="register" element={<FakeRegister />} />
-        </Routes>
+            <Route
+              path="invoices"
+              element={
+                <ProtectedWrapper>
+                  <EditClient />
+                </ProtectedWrapper>
+              }
+            />
+            <Route path="login" element={<FakeLogin />} />
+            <Route path="register" element={<FakeRegister />} />
+          </Routes>
+        </ErrorBoundary>
       </UsersProvider>
     </ThemeProvider>
   );

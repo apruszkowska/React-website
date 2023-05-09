@@ -5,6 +5,8 @@ import { useFormik, FormikProps } from "formik";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@mui/material/TextField";
 import { useUsersContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import Alert from "@mui/joy/Alert";
 
 const yupSchema = yup.object({
   name: yup.string().required("Name jest wymagane"),
@@ -52,6 +54,7 @@ const FormInput = ({
 
 export const FakeRegister = () => {
   const { addUser } = useUsersContext();
+  const navigate = useNavigate();
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -65,6 +68,10 @@ export const FakeRegister = () => {
     validationSchema: yupSchema,
     onSubmit: (values: FormValues) => {
       addUser({ login: values.login, password: values.password });
+      alert(
+        "dziękuję za rejestrację zaraz zostaniesz przeniesiony na stronę z logowaniem"
+      );
+      navigate("/login");
     },
   });
   return (

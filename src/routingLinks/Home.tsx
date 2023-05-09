@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HomeStyles from "./Home.module.css";
-import { AsideMenu } from "../others/AsideMenu";
+import { useUsersContext } from "../contexts/UserContext";
 
 export const Home = () => {
+  const { AvatarWrapper } = useUsersContext();
   return (
     <header>
+      <AvatarWrapper></AvatarWrapper>
       <nav>
         <ul className={HomeStyles.menuItems}>
           <li>

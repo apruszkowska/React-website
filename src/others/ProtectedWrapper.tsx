@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useUsersContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import Avatar from "@mui/joy/Avatar";
 
 export const ProtectedWrapper = ({
   children,
@@ -16,5 +17,5 @@ export const ProtectedWrapper = ({
       navigate("/");
     }
   }, [isLoggedIn]);
-  return <>{children}</>;
+  return <div>{children}</div>;
 };

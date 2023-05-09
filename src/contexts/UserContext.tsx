@@ -1,4 +1,12 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import Avatar from "@mui/joy/Avatar";
 
 type User = {
   login: string;
@@ -11,6 +19,7 @@ type UserContextProps = {
   isLoggedIn: boolean;
   logIn: (login: string, password: string) => void;
   logOut: () => void;
+  AvatarWrapper: any;
 };
 
 const UsersContext = createContext<UserContextProps | undefined>(undefined);
@@ -18,6 +27,13 @@ const UsersContext = createContext<UserContextProps | undefined>(undefined);
 export const UsersProvider = ({ children }: { children: ReactNode }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // check if user is logged in after registration
+  useEffect(() => {
+    console.log(isLoggedIn);
+  });
+  //
 
   const addUser = (user: User) => {
     setUsers((prev) => [...prev, user]);
@@ -28,6 +44,9 @@ export const UsersProvider = ({ children }: { children: ReactNode }) => {
     const findedUser = users.find((user) => user.login === login);
     if (findedUser && findedUser.password === password) {
       setIsLoggedIn(true);
+      alert("poprawne logowanie");
+      navigate("/orders");
+
       return;
     }
     setIsLoggedIn(false);
@@ -37,9 +56,15 @@ export const UsersProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(false);
   };
 
+  const AvatarWrapper = () => {
+    const { isLoggedIn } = useUsersContext();
+
+    return isLoggedIn ? <Avatar /> : null;
+  };
+
   return (
     <UsersContext.Provider
-      value={{ users, addUser, isLoggedIn, logIn, logOut }}
+      value={{ users, addUser, isLoggedIn, logIn, logOut, AvatarWrapper }}
     >
       {children}
     </UsersContext.Provider>

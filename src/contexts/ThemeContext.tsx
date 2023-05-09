@@ -25,11 +25,15 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeContext.Provider value={{ themeName, toggleTheme }}>
       <div className="theme" id={themeName}>
-        {children}
         <div className="switch">
           <label>{themeName === "light" ? "Light Mode" : "Dark Mode"} </label>
           <ReactSwitch onChange={toggleTheme} checked={themeName === "dark"} />
         </div>
+        {children}
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </ThemeContext.Provider>
   );

@@ -1,17 +1,21 @@
 .menuItems {
   list-style: none;
   display: flex;
+  margin: 0;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.267);
+  margin-bottom: 100px;
 }
 
 .menuItems li {
-  padding: 0 10px;
-  color: black;
+  padding: 30px 20px;
 }
 
 .menuItems a {
   color: black;
+  font-weight: bolder;
 }
 
 .menuItems a:hover {
-  color: black;
+  color: rgb(255, 255, 255);
 }
